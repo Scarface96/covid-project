@@ -60,3 +60,7 @@ This project is open source and available under the MIT License.
 ---
 
 Built with ❤️ by [Scarface96](https://github.com/Scarface96)
+
+## About This Project
+
+A SQL data exploration project focused on COVID-19 cases, deaths, infection rates and vaccination progress. It demonstrates data querying, joins, CTEs, temporary tables, window functions and the ability to extract meaningful public-health trends from large datasets.
