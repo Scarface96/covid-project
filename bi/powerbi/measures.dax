@@ -1,0 +1,49 @@
+// Power BI measures for COVID-19 Data Exploration
+// Create a measure table first (Home > Enter data > name it _Measures > Load),
+// then for each block: select _Measures > New measure > paste the block > set the format shown.
+
+// Format: #,0
+Total Cases =
+SUM ( fact_weekly[new_cases] )
+
+// Format: #,0
+Total Deaths =
+SUM ( fact_weekly[new_deaths] )
+
+// Format: 0.00%
+Case Fatality Rate =
+DIVIDE ( [Total Deaths], [Total Cases] )
+
+// Format: #,0
+Population =
+SUM ( dim_location[population] )
+
+// Format: #,0.0
+Deaths per Million =
+DIVIDE ( [Total Deaths], [Population] ) * 1000000
+
+// Format: #,0
+Cases per Million =
+DIVIDE ( [Total Cases], [Population] ) * 1000000
+
+// Format: 0.0%
+Vaccinated Share =
+-- Population-weighted share with at least one dose. The series is cumulative,
+-- so the highest value in the selected period is the latest.
+VAR t =
+    ADDCOLUMNS (
+        VALUES ( dim_location[iso_code] ),
+        "@pop", CALCULATE ( SUM ( dim_location[population] ) ),
+        "@vac", CALCULATE ( MAX ( fact_weekly[people_vaccinated_per_hundred] ) )
+    )
+VAR withData = FILTER ( t, NOT ISBLANK ( [@vac] ) )
+RETURN
+    DIVIDE ( SUMX ( withData, [@pop] * [@vac] / 100 ), SUMX ( withData, [@pop] ) )
+
+// Format: #,0
+Excess Deaths per Million =
+MAX ( fact_weekly[excess_mortality_cumulative_per_million] )
+
+// Format: 0.0
+Avg Stringency =
+AVERAGE ( fact_weekly[stringency_index] )

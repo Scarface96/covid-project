@@ -24,6 +24,12 @@ The SQL queries now run on real data, in Python, and the results are published a
 - **Vaccination by continent:** Africa ended at 39% with at least one dose, against 71% worldwide
 - **Country comparison:** pick up to three countries to compare weekly death rates and vaccination
 
+## 📊 Tableau & Power BI
+
+A ready-to-build kit for **Power BI and Tableau** lives in [`bi/`](bi/): model-ready data in a star schema, ready-to-paste DAX measures and Tableau calculated fields, a branded theme, a page-by-page layout, and the exact numbers the finished dashboard should show. Every table is exported from the same cleaning code as the live report, and a test keeps them in step.
+
+**[Open the build guide →](bi/README.md)**
+
 ## 📋 Overview
 
 This project analyzes COVID-19 data including cases, deaths, vaccinations, and other metrics using SQL queries and data visualization techniques.
